@@ -1,16 +1,9 @@
 (ns coming-postal.service.japanpost
-  (:require [net.cgrand.enlive-html :as eh :refer [select text attr=]]
+  (:require [net.cgrand.enlive-html :refer [html-snippet select attr=]]
             [clj-http.client :as client]
-            [coming-postal.service.core :refer [get-log]]))
+            [coming-postal.service.core :refer [get-log]]
+            [coming-postal.html :refer [selectext]]))
 
-
-
-(defmacro selectext [html & selector]
-  `(apply
-    str
-    (map
-     text
-     (select ~html ~@selector))))
 
 (defn make-url [code]
   (str
@@ -18,12 +11,12 @@
     code
     "&searchKind=S002&locale=ja"))
 
-(defn get-log-html [code]
+(defn get-log-html [_ code]
   (-> code
       make-url
       client/get
       :body
-      eh/html-snippet))
+      html-snippet))
 
 (defn extract-log-entries [html]
   (select html [:body [:table.tableType01 (attr= :summary "履歴情報")] :tr]))
@@ -42,7 +35,7 @@
        (empty? (:state e)))))
 
 
-(defmethod get-log :japan-post [{code :code}]
+(defmethod get-log :japan-post [code]
   (->>
    (-> code
        get-log-html

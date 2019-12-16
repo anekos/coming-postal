@@ -1,7 +1,8 @@
 (ns user
   (:require [clojure.tools.namespace.repl :refer [refresh]]
             [clojure.repl :refer :all]
-            [coming-postal.service.japanpost :as jp]))
+            [coming-postal.service.japanpost :as jp]
+            [coming-postal.service.sagawa :as sg]))
 
 
 (defn init []
