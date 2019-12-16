@@ -1,6 +1,7 @@
 (ns coming-postal.service.japanpost
   (:require [net.cgrand.enlive-html :as eh :refer [select text attr=]]
-            [clj-http.client :as client]))
+            [clj-http.client :as client]
+            [coming-postal.service.core :refer [get-log]]))
 
 
 
@@ -17,7 +18,7 @@
     code
     "&searchKind=S002&locale=ja"))
 
-(defn get-state-html [code]
+(defn get-log-html [code]
   (-> code
       make-url
       client/get
@@ -41,10 +42,10 @@
        (empty? (:state e)))))
 
 
-(defn get-state [code]
+(defmethod get-log :japan-post [{code :code}]
   (->>
    (-> code
-       get-state-html
+       get-log-html
        extract-log-entries)
    (map parse-log-entry)
    (filter valid-entry?)))
