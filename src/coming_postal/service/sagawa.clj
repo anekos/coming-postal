@@ -1,7 +1,7 @@
 (ns coming-postal.service.sagawa
   (:require [clj-http.client :as client]
             [clojure.string :as string :refer [trim]]
-            [coming-postal.service.core :refer [get-log]]
+            [coming-postal.service.core :refer [register]]
             [net.cgrand.enlive-html :refer [html-snippet select text]]
             [java-time :as time]))
 
@@ -41,9 +41,14 @@
      :state (fix-state state)
      :detail detail}))
 
-(defmethod get-log :sagawa [_ code]
+(defn get-log [code]
   (->>
    (-> code
        get-log-html
        extract-log-entries)
    (map parse-log-entry)))
+
+(register get-log
+          :sagawa
+          :sg
+          :s)

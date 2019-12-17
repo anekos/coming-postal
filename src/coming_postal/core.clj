@@ -1,7 +1,10 @@
 (ns coming-postal.core
   (:gen-class)
   (:require [clojure.pprint :refer [cl-format]]
-            [coming-postal.service.core :refer [get-log-by-tagged]]))
+            [coming-postal.service.core :refer [get-log]]
+            [coming-postal.service.sagawa]
+            [coming-postal.service.japanpost]
+            [coming-postal.service.kuroneko]))
 
 
 
@@ -25,5 +28,5 @@
    (doseq [code codes]
      (cl-format *out* "[~A]~%" code)
      (-> code
-         get-log-by-tagged
+         get-log
          show))))
