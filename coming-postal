@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euC
+# set -o pipefail
+
+# exec 5>> /tmp/xmosh/shell-script-debug.out
+# BASH_XTRACEFD="5"
+# PS4='$LINENO: '
+# set -x
+
+jar=./target/coming-postal-0.1.0-SNAPSHOT-standalone.jar
+
+[ -f "$jar" ] || lein uberjar
+
+exec java -jar "$jar" "$@"
