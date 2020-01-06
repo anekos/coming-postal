@@ -3,7 +3,8 @@
   (:require [clj-http.client :as client]
             [clojure.string :as string :refer [trim]]
             [coming-postal.service.core :refer [register]]
-            [net.cgrand.enlive-html :refer [html-snippet select text]]))
+            [net.cgrand.enlive-html :refer [html-snippet select text]]
+            [kunekune :refer [$->]]))
 
 
 (def url "http://link.kuronekoyamato.co.jp/link/send/receive/lneko")
@@ -39,11 +40,10 @@
       html-snippet))
 
 (defn get-log [code]
-  (->>
-   (-> code
+  ($-> code
        get-log-html
-       extract-log-entries)
-   (map parse-log-entry)))
+       extract-log-entries
+       (map parse-log-entry $)))
 
 (register get-log
           :kuroneko
