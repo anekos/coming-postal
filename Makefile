@@ -1,7 +1,10 @@
 
 UBERJAR=./target/coming-postal-0.1.0-SNAPSHOT-standalone.jar
 
-$(UBERJAR):
+SRCROOTS = src test
+SOURCES = $(foreach root, $(SRCROOTS), $(shell find $(root) -name '*.clj'))
+
+$(UBERJAR): $(SOURCES)
 	lein clean
 	lein uberjar
 
