@@ -1,7 +1,7 @@
 (ns coming-postal.service.kuroneko
   (:gen-class)
-  (:require [clj-http.client :as client]
-            [clojure.string :as string :refer [trim]]
+  (:require [clojure.string :as string :refer [trim]]
+            [coming-postal.agent :as agent]
             [coming-postal.service.core :refer [register]]
             [net.cgrand.enlive-html :refer [html-snippet select text]]
             [kunekune :refer [$->]]))
@@ -26,7 +26,7 @@
 
 (defn get-log-html [code]
   (-> url
-      (client/post
+      (agent/post
         {:headers
          {:User-Agent "Mozilla/5.0 (X11; Linux x86_64; rv:71.0) Gecko/20100101 Firefox/71.0"}
          :form-params
@@ -36,7 +36,6 @@
           :n01 code}
          :decode-body-headers true
          :as :auto})
-      :body
       html-snippet))
 
 (defn get-log [code]

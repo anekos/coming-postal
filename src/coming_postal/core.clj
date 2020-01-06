@@ -1,6 +1,7 @@
 (ns coming-postal.core
   (:gen-class)
   (:require [clojure.pprint :refer [cl-format]]
+            [coming-postal.agent :as agent]
             [coming-postal.service.core :refer [get-log]]
             [coming-postal.service.sagawa]
             [coming-postal.service.japanpost]
@@ -29,4 +30,5 @@
      (cl-format *out* "[~A]~%" code)
      (-> code
          get-log
-         show))))
+         show))
+   (agent/store-cache)))

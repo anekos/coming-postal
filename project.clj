@@ -7,12 +7,13 @@
                  [clj-http "3.10.0"]
                  [enlive "1.1.6"]
                  [clojure.java-time "0.3.0"]
-                 [net.snca/kunekune "0.1.6"]]
+                 [net.snca/kunekune "0.1.6"]
+                 [org.clojure/core.cache "0.8.2"]]
+  :main coming-postal.core
   :profiles {:dev
              {:dependencies [[org.clojure/tools.namespace "0.3.1"]]
               :source-paths ["src" "dev"]
               :aot []
               :repl-options {:init-ns user}}
              :uberjar
-             {:aot :all
-              :main coming-postal.core}})
+             {:aot :all}})
