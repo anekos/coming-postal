@@ -19,7 +19,7 @@
 
 (defn store-cache []
   (spit *cache-file*
-        (pr-str @*cache*)))
+        @*cache*))
 
 (defn with-cache [f]
   (fn [& args]
