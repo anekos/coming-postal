@@ -1,7 +1,7 @@
 (ns coming-postal.service.japanpost
   (:require [net.cgrand.enlive-html :refer [html-snippet select attr=]]
             [coming-postal.service.core :refer [register]]
-            [clj-http.client :as client]
+            [coming-postal.agent :as agent]
             [coming-postal.html :refer [selectext]]))
 
 
@@ -14,8 +14,7 @@
 (defn get-log-html [code]
   (-> code
       make-url
-      client/get
-      :body
+      agent/get
       html-snippet))
 
 (defn extract-log-entries [html]

@@ -1,6 +1,6 @@
 (ns coming-postal.service.sagawa
-  (:require [clj-http.client :as client]
-            [clojure.string :as string :refer [trim]]
+  (:require [clojure.string :as string :refer [trim]]
+            [coming-postal.agent :as agent]
             [coming-postal.service.core :refer [register]]
             [net.cgrand.enlive-html :refer [html-snippet select text]]
             [java-time :as time]))
@@ -9,12 +9,11 @@
 
 (defn get-log-html [code]
   (-> url
-      (client/post
+      (agent/post
        {:form-params
         {:okurijoNo code
          :x 17
          :y 23}})
-      :body
       html-snippet))
 
 (defn extract-log-entries [html]
