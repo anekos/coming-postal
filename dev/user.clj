@@ -6,16 +6,3 @@
             [coming-postal.service.japanpost :as jp]
             [coming-postal.service.sagawa :as sg]
             [coming-postal.service.kuroneko :as ku]))
-
-
-(defn init []
-  (alter-var-root #'*print-level* (constantly 4))
-  (alter-var-root #'*print-length* (constantly 40)))
-
-
-(defn reset []
-  (init)
-  (refresh))
-
-
-(init)
