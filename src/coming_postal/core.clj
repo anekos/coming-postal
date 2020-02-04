@@ -1,6 +1,7 @@
 (ns coming-postal.core
   (:gen-class)
   (:require [clojure.pprint :refer [cl-format]]
+            [cachify.core :refer [perm-on-exit]]
             [coming-postal.agent :as agent]
             [coming-postal.service.core :refer [get-log]]
             [coming-postal.service.sagawa]
@@ -26,9 +27,9 @@
   ([]
    (cl-format *out* "Usage: coming-postal <CODE>"))
   ([& codes]
+   (perm-on-exit)
    (doseq [code codes]
      (cl-format *out* "[~A]~%" code)
      (-> code
          get-log
-         show))
-   (agent/store-cache)))
+         show))))

@@ -10,7 +10,7 @@
                  [net.snca/kunekune "0.1.6"]
                  [me.raynes/fs "1.4.6"]
                  [org.clojure/core.cache "0.8.2"]
-                 [net.snca/cachify "0.1.0"]]
+                 [net.snca/cachify "0.0.1"]]
   :main coming-postal.core
   :profiles {:dev
              {:dependencies [[org.clojure/tools.namespace "0.3.1"]]
