@@ -2,7 +2,6 @@
   (:gen-class)
   (:require [clojure.pprint :refer [cl-format]]
             [cachify.core :refer [perm-on-exit]]
-            [coming-postal.agent :as agent]
             [coming-postal.service.core :refer [get-log]]
             [coming-postal.service.sagawa]
             [coming-postal.service.japanpost]
@@ -13,8 +12,8 @@
 (defn show [log]
   (if (empty? log)
     (cl-format *out* "Invalid~%")
-    (doseq [{at :at state :state detail :detail} log]
-      (cl-format *out* "~A - ~A - ~A~%" at state detail))))
+    (doseq [{at :at state :state detail :detail country :country} log]
+      (cl-format *out* "~A - ~A - ~A (~A)~%" at state detail (or country "")))))
 
 (defn guess-service [code]
   (condp re-find code

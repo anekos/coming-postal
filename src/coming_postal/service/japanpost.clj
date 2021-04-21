@@ -1,5 +1,6 @@
 (ns coming-postal.service.japanpost
   (:require [net.cgrand.enlive-html :refer [html-snippet select attr=]]
+            [clojure.string :as string :refer [trim]]
             [coming-postal.service.core :refer [register]]
             [coming-postal.agent :as agent]
             [coming-postal.html :refer [selectext]]))
@@ -26,7 +27,10 @@
    :state
    (selectext e [:td.w_150])
    :detail
-   (selectext e [:td.w_180])})
+   (selectext e [:td.w_180])
+   :country
+   (when-let [t (selectext e [[:td.w_105 (attr= :rowspan "2")]])]
+     (trim t))})
 
 (defn valid-entry? [e]
   (not
